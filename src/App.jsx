@@ -60,12 +60,15 @@ function App() {
     return hoursAsDecimal
   }
 
-
+  const clearAllFields = (e) => {
+    e.preventDefault();
+    // pending
+  }
 
   const handleClick  = (e) => {
+    e.preventDefault();
     let hoursAndMinutesAsDecimalArray = []
     let resultArray = []
-    e.preventDefault();
     
     const refArray = [];
     for (let i = 1; i <= 7; i++) {
@@ -120,40 +123,42 @@ function App() {
  
   return (
     <>
-      <div className='flex justify-center text-center'>
-        <div>
-          <h1 className='text-red-500'>Calculadora</h1>
-          <h2 className='text-xl text-cyan-400'>Horas : Minutos</h2>
-          
-          {inputRefs.map((refs, index) => (
-            <div key={index}>
-              <div className='py-2' >
-                <h3 className='py-2 text-lg text-amber-200'>Day: # {index+1}</h3>
-                Hours: 
-                <input
-                  id={`inputH${index + 1}`}
-                  ref={refs.refH}
-                  type="text"
-                  className='mx-3'
-                  placeholder={`Hora ${index + 1}`}
-                />
-                Minutes: 
-                <input
-                  id={`inputM${index + 1}`}
-                  ref={refs.refM}
-                  type="text"
-                  className='mx-3'
-                  placeholder={`Minuto ${index + 1}`}
-                  />
-              </div>
-            </div>
-          ))}
-          
-          <div>
-            <button className='bg-cyan-400 text-black p-3' onClick={handleClick}>Calcular resultado</button>
+      <div className='flex justify-center text-center bg-indigo-950 min-h-screen'>
+        <div className='border-[1px] border-red-600 p-10 bg-blue-950 h-full'>
+          <h1 className='text-amber-500 font-bold text-4xl'>Time Calculator</h1>
+          <div className='bg-slate-950 text-amber-500 py-4 relative border-[1px] border-blue-500 my-3'>
+            <label className='absolute top-2 left-5'>Result is: </label>
+            <label className='text-red-500 text-2xl'>{result}</label>
           </div>
+          <h2 className='text-xl text-blue-300'>Hours : Minutes</h2>
+          <div className='grid grid-flow-col grid-rows-3 gap-6'>
+            {inputRefs.map((refs, index) => (
+              <div key={index}>
+                <div className='py-2' >
+                  <h3 className='py-1 text-lg text-amber-200'>Group #{index+1}</h3> 
+                  <input
+                    id={`inputH${index + 1}`}
+                    ref={refs.refH}
+                    type="text"
+                    className='text-[17px] mx-2 w-20 rounded-xl p-2 bg-slate-900 border-[1px] border-blue-600 text-orange-600 placeholder-gray-400'
+                    placeholder={`Hours ${index + 1}`}
+                  /> 
+                  <label>:</label>
+                  <input
+                    id={`inputM${index + 1}`}
+                    ref={refs.refM}
+                    type="text"
+                    className='text-[17px] mx-2 w-20 rounded-xl p-2 bg-slate-900 border-[1px] border-blue-600 text-amber-400 placeholder-gray-400'
+                    placeholder={`Minutes ${index + 1}`}
+                    />
+                </div>
+              </div>
+            ))}
+          </div>
+          
           <div>
-            Resultado es: <label className='text-red-500'>{result}</label>
+            <button className='bg-blue-600 text-white p-2 rounded-xl text-md m-3' onClick={handleClick}>Get Results</button>
+            <button className='bg-red-500 text-white p-2 rounded-xl text-md m-3' onClick={clearAllFields}>Clear all fields</button>
           </div>
         </div>
       </div>
